@@ -179,3 +179,64 @@ mover(Modulo) :-
     write(Modulo),
     nl,
     fail.
+
+
+% ------------------------------------------------------------
+% tomar(Artefacto)
+% Permite tomar un artefacto si esta en el modulo actual.
+% No se toma automaticamente al entrar a un modulo.
+% ------------------------------------------------------------
+
+tomar(Artefacto) :-
+    artefactosLogrados(Lista),
+    en_lista(Artefacto, Lista),
+    write('Ya tienes este artefacto: '),
+    write(Artefacto),
+    nl,
+    !.
+
+tomar(Artefacto) :-
+    jugador(ModuloActual),
+    artefacto(Artefacto, ModuloActual),
+    artefactosLogrados(Lista),
+    retract(artefactosLogrados(Lista)),
+    asserta(artefactosLogrados([Artefacto|Lista])),
+    write('Artefacto tomado: '),
+    write(Artefacto),
+    nl,
+    !.
+
+tomar(Artefacto) :-
+    write('No se puede tomar este artefacto aqui: '),
+    write(Artefacto),
+    nl,
+    fail.
+
+
+% ------------------------------------------------------------
+% usar(Artefacto)
+% Registra que un artefacto ya fue usado.
+% Esto permite desbloquear modulos que lo necesiten.
+% ------------------------------------------------------------
+
+usar(Artefacto) :-
+    artefactoUsado(Artefacto),
+    write('Este artefacto ya fue usado: '),
+    write(Artefacto),
+    nl,
+    !.
+
+usar(Artefacto) :-
+    artefactosLogrados(Lista),
+    en_lista(Artefacto, Lista),
+    asserta(artefactoUsado(Artefacto)),
+    write('Artefacto usado: '),
+    write(Artefacto),
+    nl,
+    !.
+
+usar(Artefacto) :-
+    write('No tienes este artefacto, por eso no puedes usarlo: '),
+    write(Artefacto),
+    nl,
+    fail.
