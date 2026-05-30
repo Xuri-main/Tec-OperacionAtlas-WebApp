@@ -41,6 +41,7 @@ agregar_final([], Elemento, [Elemento]).
 agregar_final([Cabeza|Cola], Elemento, [Cabeza|NuevaCola]) :-
     agregar_final(Cola, Elemento, NuevaCola).
 
+
 % ------------------------------------------------------------
 % conectado(Modulo1, Modulo2)
 % Un enlace se considera bidireccional.
@@ -113,3 +114,68 @@ falta_paso_previo(Modulo) :-
 
 cumple_paso_previo(Modulo) :-
     not(falta_paso_previo(Modulo)).
+
+
+% ------------------------------------------------------------
+% puedo_ir(Hacia)
+% Determina si el jugador puede moverse desde su modulo actual
+% hacia otro modulo.
+% Valida enlace, artefactos usados, estados y pasos previos.
+% ------------------------------------------------------------
+
+puedo_ir(Hacia) :-
+    jugador(Actual),
+    conectado(Actual, Hacia),
+    cumple_artefacto(Hacia),
+    cumple_estado(Hacia),
+    cumple_paso_previo(Hacia).
+
+
+% ------------------------------------------------------------
+% registrar_visitado(Modulo)
+% Registra un modulo como visitado si no estaba registrado.
+% Se usa cut para evitar duplicados.
+% ------------------------------------------------------------
+
+registrar_visitado(Modulo) :-
+    visitado(Modulo),
+    !.
+
+registrar_visitado(Modulo) :-
+    asserta(visitado(Modulo)).
+
+
+% ------------------------------------------------------------
+% actualizar_historial(Modulo)
+% Agrega el modulo al historial de movimiento.
+% ------------------------------------------------------------
+
+actualizar_historial(Modulo) :-
+    historialModulos(Lista),
+    agregar_final(Lista, Modulo, NuevaLista),
+    retract(historialModulos(Lista)),
+    asserta(historialModulos(NuevaLista)).
+
+
+% ------------------------------------------------------------
+% mover(Modulo)
+% Mueve al jugador si puedo_ir(Modulo) se cumple.
+% Actualiza la ubicacion actual y el historial.
+% ------------------------------------------------------------
+
+mover(Modulo) :-
+    puedo_ir(Modulo),
+    retract(jugador(_)),
+    asserta(jugador(Modulo)),
+    registrar_visitado(Modulo),
+    actualizar_historial(Modulo),
+    write('Te moviste a: '),
+    write(Modulo),
+    nl,
+    !.
+
+mover(Modulo) :-
+    write('No es posible moverse a: '),
+    write(Modulo),
+    nl,
+    fail.
