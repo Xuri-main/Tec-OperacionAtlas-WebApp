@@ -1,9 +1,10 @@
-% ============================================================
-% hechos.pl
-% Base de conocimiento inicial del juego.
-% Aqui se definen modulos, enlaces, artefactos, sistemas,
-% tripulantes, restricciones y objetivos.
-% ============================================================
+/*
+    Archivo: hechos.pl
+    Descripcion: Base de conocimiento inicial del juego. Define modulos, enlaces, artefactos,
+                 sistemas, tripulantes, restricciones, objetivos y estado inicial.
+    Autores: Emilio Funes R. , Ginger Rodriguez G. & Jareck Levell C.
+    Fecha: 29/05/2026
+*/
 
 % -------------------------
 % Modulos del juego
@@ -20,8 +21,6 @@ modulo(modulo_escape, "Zona final de evacuacion orbital.").
 % -------------------------
 % Enlaces entre modulos
 % enlace(Modulo1, Modulo2)
-% Se escriben en una direccion, pero el motor los interpreta
-% como bidireccionales.
 % -------------------------
 
 enlace(puente_mando, laboratorio).
@@ -64,7 +63,7 @@ necesita(modulo_energia, traje_espacial).
 necesita(modulo_escape, tarjeta_seguridad).
 
 % -------------------------
-% Restricciones de acceso por estado de sistema
+% Restricciones de acceso por estado
 % necesitaEstado(ModuloDestino, Sistema, EstadoNecesario)
 % -------------------------
 
@@ -90,7 +89,7 @@ objetivoT(elena, rescatado).
 objetivoT(kai, rescatado).
 
 % -------------------------
-% Estado inicial del jugador
+% Estado inicial
 % -------------------------
 
 jugador(puente_mando).
