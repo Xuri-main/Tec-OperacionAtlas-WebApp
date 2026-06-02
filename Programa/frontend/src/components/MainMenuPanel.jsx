@@ -42,10 +42,6 @@ export default function MainMenuPanel({
             Cómo Jugar
           </AngularButton>
 
-          <AngularButton variant="secondary" onClick={onOptions}>
-            Opciones
-          </AngularButton>
-
           <div className="repo-button-wrap">
             <AngularButton variant="tertiary" onClick={onRepository}>
               Ver Repositorio

@@ -1,24 +1,45 @@
-/* ============================================================
-   MENU PRINCIPAL OPERACION ATLAS - FIGMA A JSX
-   ============================================================ */
-
-.atlas-menu-screen {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  overflow: hidden;
-  background: #000;
-  color: #f8fdff;
+:root {
   font-family: "JetBrains Mono", "Roboto Mono", "Space Mono", "IBM Plex Mono", monospace;
+  color: #e8f7ff;
+  background: #000;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
 }
 
-.atlas-menu-center {
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  background: #000;
+}
+
+body {
+  overflow-x: hidden;
+  background: #000;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+/* ============================================================
+   FONDO COMPARTIDO
+   ============================================================ */
+
+.atlas-info-page,
+.atlas-game-page {
   position: relative;
-  z-index: 4;
   min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 28px;
+  width: 100%;
+  overflow: hidden;
+  background: #000;
 }
 
 .atlas-space-background {
@@ -30,6 +51,7 @@
     radial-gradient(circle at 20% 85%, rgba(0, 255, 170, 0.045), transparent 28%),
     radial-gradient(circle at 45% 40%, rgba(0, 97, 140, 0.08), transparent 36%),
     #000;
+  pointer-events: none;
 }
 
 .space-nebula {
@@ -166,6 +188,29 @@
     opacity: 0.34;
     transform: scale(1.05);
   }
+}
+
+/* ============================================================
+   MENU PRINCIPAL
+   ============================================================ */
+
+.atlas-menu-screen {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #000;
+  color: #f8fdff;
+  font-family: "JetBrains Mono", "Roboto Mono", "Space Mono", "IBM Plex Mono", monospace;
+}
+
+.atlas-menu-center {
+  position: relative;
+  z-index: 4;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 28px;
 }
 
 .atlas-menu-panel {
@@ -369,10 +414,6 @@
     inset 0 0 24px rgba(0, 255, 210, 0.04);
 }
 
-.atlas-angular-button:active {
-  transform: translateY(0) scale(0.99);
-}
-
 .button-text {
   position: relative;
   z-index: 2;
@@ -479,25 +520,6 @@
   bottom: 0;
   border-right: 1px solid rgba(0, 212, 255, 0.5);
   border-bottom: 1px solid rgba(0, 212, 255, 0.5);
-}
-
-.atlas-menu-panel::after {
-  content: "";
-  position: absolute;
-  inset: -18px;
-  z-index: -1;
-  opacity: 0.26;
-  filter: blur(24px);
-  background: linear-gradient(135deg, rgba(0, 212, 255, 0.38), rgba(18, 216, 162, 0.26));
-  clip-path: polygon(
-    24px 0,
-    100% 0,
-    100% calc(100% - 24px),
-    calc(100% - 24px) 100%,
-    0 100%,
-    0 24px
-  );
-  animation: glowPulse 3.4s ease-in-out infinite;
 }
 
 .atlas-status-indicators {
@@ -612,18 +634,670 @@
   }
 }
 
-@keyframes glowPulse {
-  0%,
-  100% {
-    opacity: 0.18;
+/* ============================================================
+   PANTALLAS DE INFORMACION
+   ============================================================ */
+
+.info-panel {
+  position: relative;
+  z-index: 5;
+  width: min(820px, 92vw);
+  margin: 0 auto;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 34px;
+  border: 1px solid rgba(130, 231, 255, 0.18);
+  background:
+    linear-gradient(180deg, rgba(12, 22, 32, 0.86), rgba(5, 10, 17, 0.92)),
+    rgba(5, 10, 18, 0.88);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03) inset,
+    0 24px 80px rgba(0, 0, 0, 0.58),
+    0 0 80px rgba(0, 255, 209, 0.08);
+  backdrop-filter: blur(14px);
+  clip-path: polygon(
+    18px 0,
+    100% 0,
+    100% calc(100% - 18px),
+    calc(100% - 18px) 100%,
+    0 100%,
+    0 18px
+  );
+}
+
+.info-panel h2 {
+  margin: 12px 0;
+  color: #f0fbff;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 900;
+}
+
+.info-panel p {
+  color: #afc1cc;
+  line-height: 1.7;
+}
+
+.command-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin: 24px 0;
+}
+
+.command-list code,
+.hint code {
+  display: inline-block;
+  border: 1px solid rgba(117, 245, 211, 0.16);
+  background: rgba(0, 0, 0, 0.28);
+  color: #75f5d3;
+  padding: 10px 12px;
+}
+
+.back-button {
+  margin-bottom: 16px;
+  border: 1px solid rgba(111, 231, 255, 0.22);
+  background: rgba(11, 25, 34, 0.78);
+  color: #eaffff;
+  padding: 12px 16px;
+  cursor: pointer;
+  clip-path: polygon(
+    6px 0,
+    100% 0,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    0 100%,
+    0 6px
+  );
+}
+
+.back-button:hover {
+  border-color: rgba(117, 245, 211, 0.7);
+  color: #75f5d3;
+}
+
+.option-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 12px 0;
+  padding: 16px;
+  border: 1px solid rgba(130, 231, 255, 0.14);
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.option-card span {
+  color: #8aa1ad;
+}
+
+.option-card strong {
+  color: #75f5d3;
+}
+
+/* ============================================================
+   PANTALLA DE JUEGO
+   ============================================================ */
+
+.atlas-game-screen {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  color: #edfaff;
+  font-family: "JetBrains Mono", "Roboto Mono", "Space Mono", "IBM Plex Mono", monospace;
+}
+
+.game-top-label {
+  position: absolute;
+  top: 28px;
+  left: 30px;
+  z-index: 7;
+  color: rgba(142, 164, 180, 0.82);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+}
+
+.game-top-controls {
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  z-index: 7;
+  display: flex;
+  gap: 14px;
+}
+
+.game-control-button {
+  padding: 10px 18px;
+  border: 1px solid rgba(100, 125, 150, 0.45);
+  background: rgba(8, 18, 34, 0.72);
+  color: rgba(188, 202, 216, 0.82);
+  font-family: inherit;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  clip-path: polygon(
+    6px 0,
+    100% 0,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    0 100%,
+    0 6px
+  );
+  transition: 180ms ease;
+}
+
+.game-control-button:hover {
+  color: #18e7ff;
+  border-color: rgba(24, 231, 255, 0.72);
+  box-shadow: 0 0 24px rgba(24, 231, 255, 0.12);
+}
+
+.game-terminal-wrapper {
+  width: min(1040px, 92vw);
+  position: relative;
+  z-index: 6;
+}
+
+.game-terminal {
+  position: relative;
+  overflow: hidden;
+  min-height: 570px;
+  border: 1px solid rgba(0, 200, 255, 0.36);
+  background:
+    radial-gradient(circle at 12% 38%, rgba(0, 210, 255, 0.035), transparent 20%),
+    linear-gradient(135deg, rgba(9, 24, 40, 0.76), rgba(4, 9, 20, 0.94) 42%, rgba(0, 0, 0, 0.96));
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.018) inset,
+    0 0 60px rgba(0, 178, 255, 0.11),
+    0 35px 90px rgba(0, 0, 0, 0.8);
+  clip-path: polygon(
+    18px 0,
+    100% 0,
+    100% calc(100% - 18px),
+    calc(100% - 18px) 100%,
+    0 100%,
+    0 18px
+  );
+  animation: terminalEntry 0.75s ease-out both;
+}
+
+@keyframes terminalEntry {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.98);
   }
 
-  50% {
-    opacity: 0.34;
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
-@media (max-width: 720px) {
+.game-terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  min-height: 46px;
+  padding: 0 24px;
+  border-bottom: 1px solid rgba(0, 200, 255, 0.22);
+  background: rgba(5, 12, 25, 0.62);
+}
+
+.terminal-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #00dbff;
+  font-size: 0.82rem;
+  letter-spacing: 0.13em;
+}
+
+.mini-dot {
+  width: 6px;
+  height: 6px;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.mini-dot.cyan {
+  background: rgba(0, 213, 255, 0.72);
+}
+
+.mini-dot.green {
+  background: rgba(24, 235, 176, 0.72);
+  animation: atlasPulse 1.6s infinite;
+}
+
+.terminal-core-status {
+  color: rgba(116, 134, 152, 0.68);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.game-console-output {
+  height: 385px;
+  padding: 26px;
+  overflow-y: auto;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.018) 50%, transparent 50%),
+    rgba(0, 0, 0, 0.08);
+  background-size: 100% 7px;
+}
+
+.console-line {
+  margin: 0 0 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.65;
+  font-size: 0.9rem;
+  animation: consoleLineEntry 260ms ease-out both;
+}
+
+@keyframes consoleLineEntry {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+    filter: blur(1px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+.console-line.system {
+  color: #00ffaa;
+  font-weight: 700;
+  text-shadow: 0 0 14px rgba(0, 255, 170, 0.18);
+}
+
+.console-line.warning {
+  color: #ffc247;
+  font-weight: 700;
+  text-shadow: 0 0 14px rgba(255, 194, 71, 0.14);
+}
+
+.console-line.mission {
+  color: #39e7ff;
+  font-weight: 900;
+  text-shadow: 0 0 16px rgba(57, 231, 255, 0.2);
+}
+
+.console-line.terminal-note {
+  color: #9ba9bb;
+  font-style: italic;
+}
+
+.console-line.command {
+  color: #15e7a5;
+}
+
+.console-line.success {
+  color: #55ffbd;
+  font-weight: 800;
+}
+
+.console-line.danger {
+  color: #ff6565;
+  font-weight: 800;
+}
+
+.console-line.victory {
+  color: #5affd1;
+  font-weight: 1000;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 26px rgba(90, 255, 209, 0.35);
+}
+
+.console-line.normal {
+  color: #d8e7f0;
+}
+
+.terminal-cursor-line {
+  display: flex;
+  align-items: center;
+  min-height: 20px;
+  color: rgba(150, 170, 194, 0.7);
+}
+
+.terminal-block-cursor {
+  animation: cursorBlink 1s infinite;
+}
+
+@keyframes cursorBlink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+
+  46%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.game-command-zone {
+  border-top: 1px solid rgba(0, 200, 255, 0.18);
+  padding: 18px;
+  background: rgba(3, 8, 18, 0.68);
+}
+
+.game-command-input-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 14px;
+  align-items: center;
+}
+
+.terminal-prefix {
+  color: #00ffaa;
+  font-size: 0.86rem;
+}
+
+.game-command-input-row input {
+  width: 100%;
+  border: 1px solid rgba(112, 134, 156, 0.36);
+  background: rgba(10, 18, 34, 0.72);
+  color: #dcecff;
+  padding: 11px 16px;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.9rem;
+  clip-path: polygon(
+    5px 0,
+    100% 0,
+    100% calc(100% - 5px),
+    calc(100% - 5px) 100%,
+    0 100%,
+    0 5px
+  );
+}
+
+.game-command-input-row input:focus {
+  border-color: rgba(0, 210, 255, 0.7);
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.08);
+}
+
+.game-command-input-row input::placeholder {
+  color: rgba(161, 176, 193, 0.45);
+}
+
+.game-command-input-row input:disabled,
+.game-command-input-row button:disabled,
+.game-quick-actions button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.game-command-input-row button,
+.game-quick-actions button {
+  border: 1px solid rgba(0, 200, 255, 0.42);
+  background: rgba(9, 23, 39, 0.72);
+  color: #22ddff;
+  font-family: inherit;
+  cursor: pointer;
+  clip-path: polygon(
+    5px 0,
+    100% 0,
+    100% calc(100% - 5px),
+    calc(100% - 5px) 100%,
+    0 100%,
+    0 5px
+  );
+  transition: 180ms ease;
+}
+
+.game-command-input-row button {
+  padding: 11px 25px;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  font-weight: 800;
+}
+
+.game-command-input-row button:hover,
+.game-quick-actions button:hover {
+  color: #ffffff;
+  border-color: rgba(0, 255, 210, 0.8);
+  box-shadow: 0 0 18px rgba(0, 255, 210, 0.12);
+}
+
+.game-quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(115, 135, 155, 0.16);
+}
+
+.game-quick-actions button {
+  padding: 8px 14px;
+  color: rgba(188, 202, 218, 0.86);
+  border-color: rgba(105, 127, 148, 0.36);
+  font-size: 0.75rem;
+}
+
+.terminal-corner {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  pointer-events: none;
+}
+
+.terminal-corner.top-left {
+  top: 0;
+  left: 0;
+  border-top: 1px solid rgba(0, 210, 255, 0.42);
+  border-left: 1px solid rgba(0, 210, 255, 0.42);
+}
+
+.terminal-corner.bottom-right {
+  bottom: 0;
+  right: 0;
+  border-right: 1px solid rgba(0, 210, 255, 0.42);
+  border-bottom: 1px solid rgba(0, 210, 255, 0.42);
+}
+
+.game-footer-meta {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 8px 0;
+  color: rgba(98, 116, 136, 0.58);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.game-help-orb {
+  position: absolute;
+  z-index: 8;
+  right: 18px;
+  bottom: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(166, 182, 194, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(240, 248, 255, 0.78);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.game-help-orb:hover {
+  border-color: rgba(0, 210, 255, 0.55);
+  color: #fff;
+}
+
+@keyframes atlasPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.35;
+    transform: scale(0.75);
+  }
+}
+
+/* ============================================================
+   VICTORIA
+   ============================================================ */
+
+.victory-terminal {
+  border-color: rgba(72, 255, 205, 0.9);
+  box-shadow:
+    0 0 0 1px rgba(72, 255, 205, 0.22) inset,
+    0 0 80px rgba(72, 255, 205, 0.28),
+    0 35px 100px rgba(0, 0, 0, 0.8);
+  animation: victoryPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes victoryPulse {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.18);
+  }
+}
+
+.victory-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle, rgba(0, 255, 200, 0.12), rgba(0, 0, 0, 0.78) 58%),
+    rgba(0, 0, 0, 0.55);
+  animation: victoryOverlayEntry 0.6s ease-out both;
+}
+
+@keyframes victoryOverlayEntry {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.victory-card {
+  width: min(560px, 88vw);
+  padding: 42px;
+  text-align: center;
+  border: 1px solid rgba(72, 255, 205, 0.72);
+  background:
+    linear-gradient(135deg, rgba(7, 30, 33, 0.92), rgba(0, 0, 0, 0.96));
+  clip-path: polygon(
+    20px 0,
+    100% 0,
+    100% calc(100% - 20px),
+    calc(100% - 20px) 100%,
+    0 100%,
+    0 20px
+  );
+  box-shadow:
+    0 0 70px rgba(72, 255, 205, 0.24),
+    0 30px 90px rgba(0, 0, 0, 0.8);
+}
+
+.victory-card p {
+  margin: 0 0 10px;
+  color: #00ffaa;
+  letter-spacing: 0.28em;
+  font-size: 0.78rem;
+}
+
+.victory-card h2 {
+  margin: 0 0 20px;
+  color: #ffffff;
+  font-size: clamp(2.3rem, 6vw, 4.2rem);
+  line-height: 0.95;
+  font-weight: 1000;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 32px rgba(72, 255, 205, 0.34);
+}
+
+.victory-card span {
+  display: block;
+  color: #8fffe1;
+  margin: 8px 0;
+  font-weight: 800;
+}
+
+.victory-card button {
+  margin-top: 28px;
+  padding: 14px 24px;
+  border: 1px solid rgba(72, 255, 205, 0.72);
+  background: rgba(0, 255, 180, 0.12);
+  color: #ffffff;
+  font-family: inherit;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  clip-path: polygon(
+    8px 0,
+    100% 0,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    0 100%,
+    0 8px
+  );
+}
+
+.victory-card button:hover {
+  background: rgba(0, 255, 180, 0.22);
+  box-shadow: 0 0 28px rgba(72, 255, 205, 0.18);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 820px) {
+  .game-top-label {
+    display: none;
+  }
+
+  .game-top-controls {
+    top: 14px;
+    right: 14px;
+  }
+
+  .game-terminal-wrapper {
+    width: 95vw;
+  }
+
+  .game-terminal {
+    min-height: 620px;
+  }
+
+  .game-command-input-row {
+    grid-template-columns: 1fr;
+  }
+
+  .terminal-core-status {
+    display: none;
+  }
+
+  .terminal-header-left {
+    font-size: 0.68rem;
+  }
+
+  .atlas-status-indicators,
+  .atlas-system-info {
+    display: none;
+  }
+
   .atlas-menu-panel {
     padding: 44px 28px;
   }
@@ -637,12 +1311,374 @@
     letter-spacing: 0.28em;
   }
 
-  .atlas-status-indicators,
-  .atlas-system-info {
+  .atlas-angular-button.tertiary {
+    width: 100%;
+  }
+
+  .info-panel {
+    top: auto;
+    transform: none;
+    margin-top: 80px;
+    margin-bottom: 40px;
+  }
+}
+
+/* ============================================================
+   COMO JUGAR - OPERACION ATLAS
+   ============================================================ */
+
+.how-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #000;
+  color: #edfaff;
+  font-family: "JetBrains Mono", "Roboto Mono", "Space Mono", "IBM Plex Mono", monospace;
+}
+
+.how-top-label {
+  position: absolute;
+  top: 28px;
+  left: 30px;
+  z-index: 7;
+  color: rgba(142, 164, 180, 0.82);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+}
+
+.how-top-controls {
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  z-index: 7;
+}
+
+.how-control-button {
+  padding: 10px 18px;
+  border: 1px solid rgba(100, 125, 150, 0.45);
+  background: rgba(8, 18, 34, 0.72);
+  color: rgba(188, 202, 216, 0.82);
+  font-family: inherit;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  clip-path: polygon(
+    6px 0,
+    100% 0,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    0 100%,
+    0 6px
+  );
+  transition: 180ms ease;
+}
+
+.how-control-button:hover {
+  color: #18e7ff;
+  border-color: rgba(24, 231, 255, 0.72);
+  box-shadow: 0 0 24px rgba(24, 231, 255, 0.12);
+}
+
+.how-content {
+  position: relative;
+  z-index: 5;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 92px 28px 48px;
+}
+
+.how-panel {
+  position: relative;
+  width: min(980px, 94vw);
+  max-height: 72vh;
+  padding: 34px;
+  border: 1px solid rgba(0, 210, 255, 0.32);
+  background:
+    radial-gradient(circle at 12% 14%, rgba(0, 210, 255, 0.06), transparent 24%),
+    linear-gradient(135deg, rgba(8, 25, 41, 0.78), rgba(4, 8, 18, 0.94) 54%, rgba(0, 0, 0, 0.96));
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.018) inset,
+    0 0 70px rgba(0, 180, 255, 0.13),
+    0 28px 88px rgba(0, 0, 0, 0.76);
+  backdrop-filter: blur(10px);
+  clip-path: polygon(
+    18px 0,
+    100% 0,
+    100% calc(100% - 18px),
+    calc(100% - 18px) 100%,
+    0 100%,
+    0 18px
+  );
+  animation: howPanelEntry 0.8s ease-out both;
+}
+
+@keyframes howPanelEntry {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.how-corner {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  pointer-events: none;
+}
+
+.how-corner.top-left {
+  top: 0;
+  left: 0;
+  border-top: 1px solid rgba(0, 212, 255, 0.55);
+  border-left: 1px solid rgba(0, 212, 255, 0.55);
+}
+
+.how-corner.bottom-right {
+  bottom: 0;
+  right: 0;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.55);
+  border-right: 1px solid rgba(0, 212, 255, 0.55);
+}
+
+.how-header {
+  text-align: center;
+  padding-bottom: 24px;
+  margin-bottom: 26px;
+  border-bottom: 1px solid rgba(115, 135, 155, 0.18);
+}
+
+.how-header p {
+  margin: 0 0 10px;
+  color: rgba(142, 164, 180, 0.78);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+}
+
+.how-header h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1;
+  font-weight: 1000;
+  letter-spacing: 0.14em;
+  text-shadow:
+    0 0 26px rgba(0, 200, 255, 0.22),
+    0 0 2px rgba(255, 255, 255, 0.72);
+}
+
+.how-header h1 span {
+  color: #12d8a2;
+  text-shadow:
+    0 0 28px rgba(18, 216, 162, 0.32),
+    0 0 2px rgba(18, 216, 162, 0.7);
+}
+
+.how-scroll-area {
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 14px;
+}
+
+.how-scroll-area::-webkit-scrollbar {
+  width: 8px;
+}
+
+.how-scroll-area::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.how-scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(0, 210, 255, 0.35);
+}
+
+.how-section {
+  margin-bottom: 30px;
+  animation: howSectionEntry 0.6s ease-out both;
+}
+
+@keyframes howSectionEntry {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.how-section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.how-section-title h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.how-section-title.cyan {
+  color: #39e7ff;
+}
+
+.how-section-title.green {
+  color: #12d8a2;
+}
+
+.how-section-title.amber {
+  color: #ffc247;
+}
+
+.how-icon {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid currentColor;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.how-section p {
+  margin: 0 0 10px;
+  padding-left: 36px;
+  color: #c8d6df;
+  line-height: 1.7;
+}
+
+.how-section strong {
+  color: #39e7ff;
+  font-weight: 900;
+}
+
+.how-note {
+  color: #8fa2b1 !important;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.how-command-grid {
+  display: grid;
+  gap: 12px;
+  padding-left: 36px;
+}
+
+.how-command-card {
+  padding: 15px 17px;
+  border: 1px solid rgba(115, 135, 155, 0.22);
+  background: rgba(0, 0, 0, 0.28);
+  clip-path: polygon(
+    7px 0,
+    100% 0,
+    100% calc(100% - 7px),
+    calc(100% - 7px) 100%,
+    0 100%,
+    0 7px
+  );
+  transition: 180ms ease;
+}
+
+.how-command-card:hover {
+  border-color: rgba(0, 210, 255, 0.48);
+  background: rgba(0, 210, 255, 0.055);
+}
+
+.how-command-card code {
+  display: block;
+  margin-bottom: 6px;
+  color: #12d8a2;
+  font-size: 0.92rem;
+  font-weight: 900;
+}
+
+.how-command-card p {
+  margin: 0;
+  padding: 0;
+  color: rgba(169, 185, 197, 0.72);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.how-tips {
+  margin: 0;
+  padding-left: 58px;
+  display: grid;
+  gap: 10px;
+  color: rgba(191, 207, 218, 0.78);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.how-tips code {
+  color: #39e7ff;
+  font-weight: 900;
+}
+
+.how-start-button {
+  margin-top: 26px;
+  padding: 14px 32px;
+  border: 2px solid rgba(18, 216, 162, 0.78);
+  background:
+    linear-gradient(90deg, rgba(18, 216, 162, 0.18), rgba(0, 210, 255, 0.14)),
+    rgba(5, 13, 24, 0.78);
+  color: #ffffff;
+  font-family: inherit;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  clip-path: polygon(
+    9px 0,
+    100% 0,
+    100% calc(100% - 9px),
+    calc(100% - 9px) 100%,
+    0 100%,
+    0 9px
+  );
+  transition: 180ms ease;
+}
+
+.how-start-button:hover {
+  border-color: rgba(18, 216, 162, 1);
+  box-shadow: 0 0 28px rgba(18, 216, 162, 0.22);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 760px) {
+  .how-top-label {
     display: none;
   }
 
-  .atlas-angular-button.tertiary {
-    width: 100%;
+  .how-content {
+    padding: 82px 18px 34px;
+  }
+
+  .how-panel {
+    padding: 26px 20px;
+    max-height: 76vh;
+  }
+
+  .how-section p,
+  .how-command-grid {
+    padding-left: 0;
+  }
+
+  .how-tips {
+    padding-left: 22px;
+  }
+
+  .how-header h1 {
+    font-size: 2rem;
   }
 }
