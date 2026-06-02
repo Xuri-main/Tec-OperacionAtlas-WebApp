@@ -1,0 +1,9 @@
+{
+  "name": "operacion-atlas-backend",
+  "version": "1.0.0",
+  "description": "Backend puente entre la interfaz web y Prolog para Operacion Atlas",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

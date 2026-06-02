@@ -1,0 +1,648 @@
+/* ============================================================
+   MENU PRINCIPAL OPERACION ATLAS - FIGMA A JSX
+   ============================================================ */
+
+.atlas-menu-screen {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #000;
+  color: #f8fdff;
+  font-family: "JetBrains Mono", "Roboto Mono", "Space Mono", "IBM Plex Mono", monospace;
+}
+
+.atlas-menu-center {
+  position: relative;
+  z-index: 4;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+}
+
+.atlas-space-background {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 75% 12%, rgba(0, 187, 255, 0.06), transparent 24%),
+    radial-gradient(circle at 20% 85%, rgba(0, 255, 170, 0.045), transparent 28%),
+    radial-gradient(circle at 45% 40%, rgba(0, 97, 140, 0.08), transparent 36%),
+    #000;
+}
+
+.space-nebula {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(72px);
+  opacity: 0.16;
+}
+
+.nebula-one {
+  width: 540px;
+  height: 540px;
+  top: -130px;
+  right: -130px;
+  background: rgba(0, 160, 255, 0.35);
+}
+
+.nebula-two {
+  width: 420px;
+  height: 420px;
+  left: -120px;
+  bottom: -80px;
+  background: rgba(0, 255, 176, 0.18);
+}
+
+.nebula-three {
+  width: 360px;
+  height: 360px;
+  left: 34%;
+  top: 45%;
+  background: rgba(0, 210, 255, 0.09);
+}
+
+.space-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  animation-name: starBlink;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.space-particle {
+  position: absolute;
+  width: 1.5px;
+  height: 1.5px;
+  border-radius: 50%;
+  background: rgba(0, 218, 255, 0.5);
+  animation-name: particleDrift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.distant-planet {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.26;
+  filter: blur(0.4px);
+  box-shadow:
+    inset -16px -16px 28px rgba(0, 0, 0, 0.85),
+    0 0 38px rgba(0, 190, 255, 0.08);
+}
+
+.planet-a {
+  width: 74px;
+  height: 74px;
+  top: 13%;
+  right: 18%;
+  background: linear-gradient(135deg, rgba(116, 139, 158, 0.7), rgba(5, 12, 22, 0.85));
+  animation: planetPulse 8s ease-in-out infinite;
+}
+
+.planet-b {
+  width: 42px;
+  height: 42px;
+  bottom: 22%;
+  left: 14%;
+  background: linear-gradient(135deg, rgba(33, 87, 112, 0.45), rgba(4, 12, 20, 0.9));
+  animation: planetPulse 11s ease-in-out infinite;
+}
+
+.scan-lines {
+  position: absolute;
+  inset: 0;
+  opacity: 0.055;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 2px,
+    rgba(255, 255, 255, 0.25) 3px,
+    transparent 4px
+  );
+  pointer-events: none;
+}
+
+.dark-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.3) 58%, rgba(0, 0, 0, 0.84) 100%);
+}
+
+@keyframes starBlink {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+@keyframes particleDrift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(70px, 34px, 0);
+  }
+}
+
+@keyframes planetPulse {
+  0%,
+  100% {
+    opacity: 0.22;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.34;
+    transform: scale(1.05);
+  }
+}
+
+.atlas-menu-panel {
+  position: relative;
+  width: min(600px, 92vw);
+  padding: 56px 72px;
+  background:
+    linear-gradient(135deg, rgba(7, 28, 43, 0.82), rgba(4, 10, 18, 0.95) 58%, rgba(0, 0, 0, 0.96)),
+    rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(0, 210, 255, 0.34);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.018) inset,
+    0 0 70px rgba(0, 180, 255, 0.14),
+    0 28px 80px rgba(0, 0, 0, 0.78);
+  clip-path: polygon(
+    24px 0,
+    100% 0,
+    100% calc(100% - 24px),
+    calc(100% - 24px) 100%,
+    0 100%,
+    0 24px
+  );
+  animation: panelEntry 0.9s ease-out both;
+}
+
+@keyframes panelEntry {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.panel-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0.24;
+  background:
+    linear-gradient(135deg, rgba(0, 210, 255, 0.2), transparent 45%, rgba(0, 255, 165, 0.12));
+  pointer-events: none;
+}
+
+.panel-line {
+  position: absolute;
+  height: 1px;
+  width: 180px;
+  background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.65));
+}
+
+.panel-line-top {
+  top: 0;
+  right: 0;
+}
+
+.panel-line-bottom {
+  bottom: 0;
+  left: 0;
+  transform: rotate(180deg);
+}
+
+.panel-dots {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  gap: 5px;
+}
+
+.panel-dots span {
+  width: 4px;
+  height: 4px;
+  background: rgba(0, 212, 255, 0.65);
+}
+
+.panel-content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: 26px;
+}
+
+.protocol-label {
+  margin: 0;
+  color: rgba(0, 220, 255, 0.82);
+  font-size: 0.76rem;
+  letter-spacing: 0.42em;
+  font-weight: 800;
+  text-align: center;
+}
+
+.atlas-title {
+  margin: 0;
+  text-align: center;
+  color: #fff;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  line-height: 0.96;
+  letter-spacing: 0.17em;
+  font-weight: 1000;
+  text-shadow:
+    0 0 26px rgba(0, 200, 255, 0.22),
+    0 0 2px rgba(255, 255, 255, 0.8);
+}
+
+.atlas-title span {
+  display: block;
+  margin-top: 12px;
+  color: #12d8a2;
+  text-shadow:
+    0 0 28px rgba(18, 216, 162, 0.32),
+    0 0 2px rgba(18, 216, 162, 0.7);
+}
+
+.title-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: -8px;
+}
+
+.title-separator span {
+  width: 72px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(120, 146, 162, 0.8), transparent);
+}
+
+.title-separator i {
+  display: block;
+  width: 4px;
+  height: 4px;
+  background: rgba(0, 221, 255, 0.8);
+}
+
+.menu-button-group {
+  width: min(450px, 100%);
+  display: grid;
+  gap: 16px;
+  padding-top: 10px;
+}
+
+.repo-button-wrap {
+  display: flex;
+  justify-content: center;
+  padding-top: 16px;
+}
+
+.atlas-angular-button {
+  position: relative;
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid rgba(0, 212, 255, 0.55);
+  background: rgba(3, 13, 24, 0.76);
+  color: #dfeaf1;
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  overflow: hidden;
+  transition: 180ms ease;
+  clip-path: polygon(
+    10px 0,
+    100% 0,
+    100% calc(100% - 10px),
+    calc(100% - 10px) 100%,
+    0 100%,
+    0 10px
+  );
+}
+
+.atlas-angular-button.primary {
+  background: linear-gradient(90deg, rgba(0, 220, 160, 0.32), rgba(0, 194, 255, 0.18));
+  border: 2px solid rgba(0, 255, 190, 0.8);
+  color: #ffffff;
+}
+
+.atlas-angular-button.secondary {
+  background: rgba(4, 13, 26, 0.82);
+  border-color: rgba(0, 180, 220, 0.52);
+}
+
+.atlas-angular-button.tertiary {
+  width: auto;
+  min-width: 210px;
+  min-height: 50px;
+  color: #91a3b1;
+  background: rgba(6, 11, 20, 0.62);
+  border-color: rgba(109, 130, 145, 0.34);
+}
+
+.atlas-angular-button:hover {
+  transform: translateY(-1px) scale(1.015);
+  color: #ffffff;
+  border-color: rgba(0, 255, 210, 0.9);
+  box-shadow:
+    0 0 22px rgba(0, 255, 210, 0.18),
+    inset 0 0 24px rgba(0, 255, 210, 0.04);
+}
+
+.atlas-angular-button:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.button-text {
+  position: relative;
+  z-index: 2;
+}
+
+.button-scan {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.28), transparent);
+}
+
+.atlas-angular-button:hover .button-scan {
+  opacity: 1;
+  animation: buttonScan 1.45s linear infinite;
+}
+
+@keyframes buttonScan {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(140%);
+  }
+}
+
+.corner {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  pointer-events: none;
+}
+
+.corner-top-left {
+  top: 0;
+  left: 0;
+  border-top: 2px solid rgba(0, 240, 255, 0.7);
+  border-left: 2px solid rgba(0, 240, 255, 0.7);
+}
+
+.corner-bottom-right {
+  right: 0;
+  bottom: 0;
+  border-right: 2px solid rgba(0, 240, 255, 0.7);
+  border-bottom: 2px solid rgba(0, 240, 255, 0.7);
+}
+
+.mission-status-bar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding-top: 10px;
+  color: #526474;
+  font-size: 0.73rem;
+  font-weight: 800;
+}
+
+.mission-status-bar div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.status-dot.green {
+  background: rgba(18, 216, 162, 0.7);
+}
+
+.status-dot.cyan {
+  background: rgba(0, 210, 255, 0.8);
+  animation: dotPulse 1.8s ease-in-out infinite;
+}
+
+.status-divider {
+  width: 1px;
+  height: 14px;
+  background: rgba(94, 118, 135, 0.55);
+}
+
+.tech-corner {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+}
+
+.tech-corner-top {
+  top: 0;
+  left: 0;
+  border-top: 1px solid rgba(0, 212, 255, 0.5);
+  border-left: 1px solid rgba(0, 212, 255, 0.5);
+}
+
+.tech-corner-bottom {
+  right: 0;
+  bottom: 0;
+  border-right: 1px solid rgba(0, 212, 255, 0.5);
+  border-bottom: 1px solid rgba(0, 212, 255, 0.5);
+}
+
+.atlas-menu-panel::after {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  z-index: -1;
+  opacity: 0.26;
+  filter: blur(24px);
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.38), rgba(18, 216, 162, 0.26));
+  clip-path: polygon(
+    24px 0,
+    100% 0,
+    100% calc(100% - 24px),
+    calc(100% - 24px) 100%,
+    0 100%,
+    0 24px
+  );
+  animation: glowPulse 3.4s ease-in-out infinite;
+}
+
+.atlas-status-indicators {
+  position: absolute;
+  z-index: 5;
+  top: 32px;
+  left: 32px;
+  display: grid;
+  gap: 18px;
+  color: #4d5d6b;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+
+.online-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(18, 216, 162, 0.9);
+  font-weight: 800;
+}
+
+.online-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #12d8a2;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+.station-info p {
+  margin: 0 0 8px;
+  color: rgba(117, 134, 148, 0.72);
+  font-weight: 800;
+}
+
+.station-info small {
+  color: rgba(88, 106, 122, 0.65);
+}
+
+.mission-control-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mission-control-line span {
+  width: 34px;
+  height: 1px;
+  background: rgba(90, 110, 126, 0.5);
+}
+
+.mission-control-line small {
+  color: rgba(88, 106, 122, 0.55);
+}
+
+.atlas-system-info {
+  position: absolute;
+  z-index: 5;
+  right: 32px;
+  bottom: 32px;
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+  color: rgba(88, 106, 122, 0.6);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.atlas-system-info div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.atlas-system-info i {
+  width: 28px;
+  height: 1px;
+  background: rgba(88, 106, 122, 0.6);
+}
+
+.help-orb {
+  position: absolute;
+  z-index: 6;
+  right: 18px;
+  bottom: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(166, 182, 194, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(240, 248, 255, 0.78);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.help-orb:hover {
+  border-color: rgba(0, 210, 255, 0.55);
+  color: #fff;
+}
+
+@keyframes dotPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.35;
+    transform: scale(0.82);
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.18;
+  }
+
+  50% {
+    opacity: 0.34;
+  }
+}
+
+@media (max-width: 720px) {
+  .atlas-menu-panel {
+    padding: 44px 28px;
+  }
+
+  .atlas-title {
+    font-size: 2.8rem;
+  }
+
+  .protocol-label {
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+  }
+
+  .atlas-status-indicators,
+  .atlas-system-info {
+    display: none;
+  }
+
+  .atlas-angular-button.tertiary {
+    width: 100%;
+  }
+}

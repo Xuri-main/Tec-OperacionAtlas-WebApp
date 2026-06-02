@@ -13,3 +13,4 @@
 :- consult('reglas/tripulantes.pl').
 :- consult('reglas/rutas.pl').
 :- consult('reglas/objetivos.pl').
+:- consult('reglas/control.pl').
