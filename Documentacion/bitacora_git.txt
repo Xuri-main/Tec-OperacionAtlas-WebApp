@@ -1,0 +1,14 @@
+c909027 | 2026-06-01 | Emilio Funes R. | Mejora de la interfaz grafica
+0551f91 | 2026-06-01 | Emilio Funes R. | Pagina principal React + .gitignore
+8c05826 | 2026-06-01 | Emilio Funes R. | Archivo info.txt
+f0dcf55 | 2026-06-01 | Jareck-Levell | Reglas para tripulantes
+3b29dd2 | 2026-06-01 | GingerRG | Adicion de sistemas que reparar
+ed40ca3 | 2026-06-01 | Emilio Funes R. | Reglas de objetivos y rutas
+53f2afd | 2026-06-01 | Emilio Funes R. | Diseño de modularización
+247632a | 2026-05-29 | GingerRG |  Uso de artefactos
+7162f9a | 2026-05-29 | Jareck A. Levell Cordero | Validaciones de movimiento
+2b31583 | 2026-05-29 | Emilio Funes R. | Validaciones de modulos
+efc3213 | 2026-05-29 | GingerRG | Merge branch 'main' of https://github.com/Xuri-main/Tec-OperacionAtlas-WebApp
+0e42af1 | 2026-05-29 | GingerRG | Reglas gestion listas
+8d71331 | 2026-05-29 | Jareck A. Levell Cordero | Carga inicial de hechos
+f694f6b | 2026-05-29 | Emilio Funes R. | main, dynamics e importes de hechos y reglas.
